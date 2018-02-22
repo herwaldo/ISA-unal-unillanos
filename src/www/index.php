@@ -20,14 +20,21 @@ header("location: annotator.php");
 
       <h1>CHIMBILA<br><br>Anotador de sonidos de murciélagos</h1>
       <div id="login">
-         <h2>Iniciar sesi&#243;n</h2>
+         <h2>Inicio de Sesión</h2>
                <form action = "" method = "post">
-                  <label>Email  :</label><input id="name" type = "text" name = "username"  placeholder="usuario@mail.com" class = "box"/><br /><br />
-                  <label>Contrase&#241;a  :</label><input id="password" type = "password" name = "password" placeholder="**********" class = "box" /><br/><br />
+                  <label for="name" >Email  :</label><input id="name" type = "text" name = "username"  placeholder="usuario@mail.com" class = "box" required/><br /><br />
+                  <label for="password">Contrase&#241;a  :</label><input id="password" type = "password" name = "password" placeholder="**********" class = "box" required/><br/><br />
                   <input type = "submit" name="submit" value = " Login "/><br />
                   <span><?php echo $error; ?></span>
                </form>     
          </div>
       </div>
+    <br/>
+    <div align="center">
+        <label>Universidad de lo Llanos - Unillanos</label><br/>
+        <label>2018</label>
+
+    </div>
+
    </body>
 </html>

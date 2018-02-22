@@ -3,7 +3,7 @@
    $error=''; // Variable To Store Error Message
    if (isset($_POST['submit'])) {
       if (empty($_POST['username']) || empty($_POST['password'])) {
-         $error = "Email o Password no valido";
+         $error = "Email o Password sin completar";
       }
       else
       {
@@ -11,7 +11,7 @@
          $username=$_POST['username'];
          $password=$_POST['password'];
          // Establishing Connection with Server by passing server_name, user_id and password as a parameter
-         $db = mysqli_connect("localhost:8989", "root", "root","chimbilaDB");
+         $db = mysqli_connect("localhost:3306", "root", "","chimbilaDB");
          // To protect MySQL injection for Security purpose
          $username = stripslashes($username);
          $password = stripslashes($password);
@@ -25,7 +25,7 @@
          $_SESSION['login_user']=$username; // Initializing Session
          header("location: profile.php"); // Redirecting To Other Page
          } else {
-         $error = "Email o Password no valido";
+         $error = "Email o Password erróneos";
          }
          
       }

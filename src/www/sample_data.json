@@ -4,16 +4,17 @@
         "visualization": "spectrogram",
         "proximityTag": ["Fase de búsqueda (pases)", "Fase de aproximación", "Fase terminal (feeding buzz)"],
         "annotationTag": ["Frecuencia Modulada (FM)", "Frecuencia Constante (CF)", "Frecuencia cuasi-constantes (QCF)"],
+        "comportamiento":["Caza aérea, Caza rastreo Agua, Caza Picada Agua"],
         "url": "4.5.wav",
         "tutorialVideoURL":"https://www.youtube.com/embed/Bg8-83heFRM",
         "alwaysShowTags": true,
         "instructions": [
-            "Resalte &amp; Etiquete Cada Sonido",
-            "1. &nbsp; Familiarícese con la lista de etiquetas de sonido debajo de la grabación de audio.", 
+            "Resalta &amp; Etiqueta Cada Sonido",
+            "1. &nbsp; Conoce la lista de etiquetas de sonido debajo de la grabación de audio.",
             "2. &nbsp; Haz clic en el botón de reproducción y escucha la grabación.", 
-            "3. &nbsp; Para cada evento de sonido que escuche, haga clic y arrastre en la visualización para crear una nueva anotación.",
-            "4. &nbsp; Al crear una nueva anotación, sea lo más preciso posible.",
-            "5. &nbsp; Seleccione la etiqueta apropiada e indique si el sonido es cercano o lejano."
+            "3. &nbsp; Para cada evento de sonido que escuches, haz clic y arrastra en la visualización para crear una nueva anotación.",
+            "4. &nbsp; Al crear una nueva anotación, debes ser lo más preciso posible.",
+            "5. &nbsp; Selecciona la etiqueta apropiada e indica si el sonido es cercano o lejano."
         ]
     }
 }

@@ -4,7 +4,7 @@ include('session.php');
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CHIMBILA - Anotador de sonidos de murcielagos</title>
+    <title>CHIMBILA - Anotador de sonidos de murciélagos</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/materialize.min.css">
@@ -41,7 +41,7 @@ include('session.php');
     <!-- Modal Structure -->
     <div id="instructions-modal" class="modal" style="max-height: 50% !important;">
         <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect waves-red btn-flat">Close</a>
+            <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cerrar</a>
         </div>
         <div class="modal-content">
             <div id="instructions-container"></div>

@@ -16,7 +16,11 @@ UNIQUE INDEX (email)
 
 INSERT INTO `Users` (`user_id`, `first_name`, `last_name`, `display_name`, `email`, `password`) VALUES
                         (1, 'Angel', 'Cruz', 'Angel', 'aacruz@unillanos.edu.co', 'eikon666'),
-                        (2, 'Francisco', 'Sanchez', 'Pacho', 'fsanchezbarrera@unillanos.edu.co', 'pacho321');
+                        (2, 'Francisco', 'Sanchez', 'Pacho', 'fsanchezbarrera@unillanos.edu.co', 'pacho321'),
+                        (3, 'Yerson', 'Porras', 'Yerfer', 'yerson.porras@unillanos.edu.co', 'yerfer'),
+                        (4, 'Angelica Viviana', 'Yanten Arevalo', 'angelica', 'angelica.yanten@unillanos.edu.co', 'ayanten'),
+                        (5, 'Juan David', 'Rodriguez Hurtado', 'juan', 'juan.rodriguez.hurtado@unillanos.edu.co', 'jrodriguez'),
+                        (6, 'Yerson', 'Porras', 'Yerfer', 'yerson.porras@unillanos.edu.co', 'yerfer');
 
 
 

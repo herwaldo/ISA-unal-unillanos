@@ -186,7 +186,7 @@ WorkflowBtns.prototype = {
         var my = this;
         this.nextBtn = $('<button>', {
             class: 'btn submit',
-            text: 'ENVIAR & CARGAR SIGUIENTE GRABACION'
+            text: 'ENVIAR & CARGAR SIGUIENTE GRABACIÓN'
         });
         this.nextBtn.click(function () {
             $(my).trigger('submit-annotations');
