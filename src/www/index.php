@@ -28,13 +28,37 @@ header("location: annotator.php");
                   <span><?php echo $error; ?></span>
                </form>     
          </div>
-      </div>
-    <br/>
-    <div align="center">
-        <label>Universidad de lo Llanos - Unillanos</label><br/>
-        <label>2018</label>
+        <div align="center" style="margin-top: 10px;">
+            <div>
+                <!-- Agrega la imagen enlazando desde la virtual2, configurado para varios tipos de pantallas  -->
+                <picture>
+                    <source
+                            media="(min-width: 650px)"
+                            srcset="http://virtual2.unillanos.edu.co/imagenes/unillanos_logo.png,
+                            http://virtual2.unillanos.edu.co/imagenes/unillanos_logo.png 1.5x,
+                            http://virtual2.unillanos.edu.co/imagenes/unillanos_logo.png 2x">
+                    <source
+                            media="(min-width: 465px)"
+                            srcset="http://virtual2.unillanos.edu.co/imagenes/unillanos_logo.png,
+                            http://virtual2.unillanos.edu.co/imagenes/unillanos_logo.png 1.5x
+                            http://virtual2.unillanos.edu.co/imagenes/unillanos_logo.png 2x">
+                    <img
+                            src="http://virtual2.unillanos.edu.co/imagenes/unillanos_logo.png"
+                            srcset="http://virtual2.unillanos.edu.co/imagenes/unillanos_logo.png 1.5x,
+                            http://virtual2.unillanos.edu.co/imagenes/unillanos_logo.png 2x"
+                            alt="a cute kitten">
+                </picture>
+            </div>
+            <div>
+                <label>Universidad de lo Llanos - Unillanos</label><br/>
+                <label>2018</label>
+            </div>
 
-    </div>
+        </div>
+      </div>
+
+    <br/>
+
 
    </body>
 </html>

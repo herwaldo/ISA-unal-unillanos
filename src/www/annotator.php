@@ -5,6 +5,8 @@ include('session.php');
 <html>
 <head>
     <title>CHIMBILA - Anotador de sonidos de murciélagos</title>
+    <!-- Para usar las tildes bién desde MySQL -->
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/materialize.min.css">
@@ -58,9 +60,15 @@ include('session.php');
         <div class="creation_stage_container"></div>
         <div class="submit_container"></div>
     </div>
+
+    <div style="background-color:#8FBC8F;" id="myDiv"></div>
     <script>
         var dataUrl = 'sample_data.json';
-        var postUrl = '/<post_url>'; // This is where data posts to
+        var postUrl = '/insertar.php' //'/<post_url>'; // This is where data posts to
     </script>
+
+    <!-- Solo permite crear un espacio debajo del botón para que se vea mejor. -->
+    <div style="margin: 4%">
+    </div>
 </body>
 </html>
