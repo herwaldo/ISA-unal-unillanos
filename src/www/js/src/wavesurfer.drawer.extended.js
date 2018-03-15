@@ -67,7 +67,24 @@ WaveSurfer.util.extend(WaveSurfer.Drawer.Canvas, {
         
         return frequencies;
     },
+    getPowerSignal : function(buffer){
+        var fftSamples = this.params.fftSamples || 512;
+        var pixelRatio = this.params.pixelRatio;
+        var length = buffer.duration;
+        var height = (this.params.fftSamples / 2) * pixelRatio;
+        var frequenciesData = this.getFrequencies(buffer);
+        var power = [];
+        for(var i = 0; i< frequenciesData.length; i++){
+            Console.log("Frencuencia "+ i + " = " + frequenciesData[i]);
+            //Para calcular la potencia, se toma cada componente de frencuencia de la señal y se calcula su magnitud
+            var magnitud = Math.abs(frequenciesData[i]);
+            //Seguido se calcula la potencia cuadrada de la magnitud
+            var energia = Math.pow(magnitud);
+            power.push(energia);
 
+        }
+
+    },
     resample: function(oldMatrix) {
         var columnsNumber = this.width;
         var newMatrix = [];
