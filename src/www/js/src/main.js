@@ -46,7 +46,11 @@ function Annotator() {
         height: height,
         colorMap: spectrogramColorMap
     });
-
+	var slider = document.querySelector('#slider');
+	slider.oninput = function () {
+	  var zoomLevel = Number(slider.value);
+	  this.wavesurfer.zoom(zoomLevel);
+	};
     // Create labels (labels that appear above each region)
     var labels = Object.create(WaveSurfer.Labels);
     labels.init({
