@@ -1,1 +1,0 @@
-CREATE DATABASE `chimbiladb` /*!40100 DEFAULT CHARACTER SET utf8 */;
