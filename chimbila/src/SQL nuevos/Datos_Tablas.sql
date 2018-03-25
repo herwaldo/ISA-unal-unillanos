@@ -6,9 +6,20 @@ INSERT INTO `usuario` (`id`, `nombre`, `apellido`, `nickname`, `email`, `passwor
                         (5, 'Juan David', 'Rodriguez Hurtado', 'juan', 'juan.rodriguez.hurtado@unillanos.edu.co', 'jrodriguez');
 
 
-INSERT INTO `audio` (`id`, `nombre`, `ruta`) VALUES 
-						(1, 'yerfer_audio_1', 'chimbila/Audios/Yerfer/yerfer_audio_1.wav'),
-						(2, 'yerfer_audio_2', 'chimbila/Audios/Yerfer/yerfer_audio_2.wav');
+INSERT INTO `audio` (`id`, `nombre_original`, `nombre_audio`,`ruta`) VALUES 
+						(1, 'yerfer_audio_1', 'caso1','chimbila/Audios/Yerfer/yerfer_audio_1.wav'),
+						(2, 'yerfer_audio_2', 'caso2','chimbila/Audios/Yerfer/yerfer_audio_2.wav'),
+						(3, 'yerfer_audio_3', 'caso3','chimbila/Audios/Yerfer/yerfer_audio_1.wav'),
+						(4, 'yerfer_audio_4', 'caso4','chimbila/Audios/Yerfer/yerfer_audio_2.wav'),
+						(5, 'yerfer_audio_5', 'caso5','chimbila/Audios/Yerfer/yerfer_audio_1.wav'),
+						(6, 'yerfer_audio_6', 'caso6','chimbila/Audios/Yerfer/yerfer_audio_2.wav'),
+						(7, 'yerfer_audio_7', 'caso7','chimbila/Audios/Yerfer/yerfer_audio_1.wav'),
+						(8, 'yerfer_audio_8', 'caso8','chimbila/Audios/Yerfer/yerfer_audio_2.wav'),
+						(9, 'yerfer_audio_9', 'caso9','chimbila/Audios/Yerfer/yerfer_audio_1.wav'),
+						(10, 'yerfer_audio_10', 'caso10','chimbila/Audios/Yerfer/yerfer_audio_2.wav'),
+						(11, 'yerfer_audio_11', 'caso11','chimbila/Audios/Yerfer/yerfer_audio_1.wav'),
+						(12, 'yerfer_audio_12', 'caso12','chimbila/Audios/Yerfer/yerfer_audio_2.wav'),
+						(13, 'yerfer_audio_13', 'caso13','chimbila/Audios/Yerfer/yerfer_audio_1.wav');
 
 INSERT INTO `tipo_etiqueta` (`id`, `nombre`) VALUES 
 						(1, 'Frecuencia'),
