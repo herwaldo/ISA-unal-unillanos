@@ -1,6 +1,7 @@
 <?php
 include('session.php');
-$resultado = mysqli_query($db,"SELECT * FROM audio");
+$resultado = mysqli_query($db,"SELECT c.nombre, a.nombre_audio, a.id FROM audio a, coleccion c, usuario u WHERE a.id=c.audio_id AND c.users_user_id=u.id AND u.id=".$identificacion."");
+$coleccion = mysqli_query($db,"SELECT DISTINCT nombre FROM coleccion WHERE users_user_id=".$identificacion."");
 $contador=1;
 ?>
 <!DOCTYPE html>
@@ -11,6 +12,7 @@ $contador=1;
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="css/audio-annotator.css">
 
@@ -55,25 +57,49 @@ $contador=1;
         </div>
     </div>
 
-    <div class="col-mod-12">
-        <table>
-            <thead>
-                <th>No°</th>
-                <th>Nombre</th>
-                <th>Accion</th>
-            </thead>
-            <tbody>
+    <div class="row">
+        <div class="col s3">
+            <h4>Colecciones</h4>
+            <ul>
                 <?php
-                foreach ($resultado as $key => $value) {
-                    echo "<tr>";
-                    echo "  <td>".$contador."</td>";
-                    echo "  <td>".$value['nombre']."</td>";
-                    echo "  <td><a style='cursor:pointer' onclick =' anotarAudios(" .$value['id'] ."); '>Abrir</a></td>";
-                    echo "</tr>";
-                    $contador++;
+                foreach ($coleccion as $key => $col) {
+                    echo "<li>".utf8_encode($col['nombre'])."</li>";
                 }
                 ?>
-            </tbody>
+            </ul>
+        </div>
+        <br>
+        <br><br>
+        <div class="col s9">
+            <div>
+                <a class="waves-effect waves-light btn"><i class="material-icons left">add_circle</i>Agregar Colección</a>
+            </div>
+            <div>
+                <h3>Prueba de título</h3>
+                <table>
+                    <thead>
+                        <th>No°</th>
+                        <th>Nombre Audio</th>
+                        <th>Colección</th>
+                        <th><center>Acción</center></th>
+                    </thead>
+                    <tbody>
+                        <?php
+                        foreach ($resultado as $key => $value) {
+                            echo "<tr>";
+                            echo "  <td>".$contador."</td>";
+                            echo "  <td>".$value['nombre_audio']."</td>";
+                            echo "  <td>".utf8_encode($value['nombre'])."</td>";
+                            echo "  <td><a class='waves-effect waves-light blue btn' onclick =' anotarAudios(" .$value['id'] ."); '><i class='tiny material-icons left'>play_circle_outline</i>Abrir</a>  <a class='waves-effect waves-light yellow btn' onclick =' anotarAudios(" .$value['id'] ."); '><i class='tiny material-icons left'>edit</i>Modificar</a>  <a class='waves-effect waves-light red btn' onclick =' anotarAudios(" .$value['id'] ."); '><i class='tiny material-icons left'>delete</i>Eliminar</a></td>";
+                            echo "</tr>";
+                            $contador++;
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
     </div>
 
 </body>
