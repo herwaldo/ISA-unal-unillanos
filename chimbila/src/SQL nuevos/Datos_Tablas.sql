@@ -36,3 +36,8 @@ INSERT INTO `etiqueta` (`id`, `nombre`, `tipo_etiqueta_id`) VALUES
 						(7, "Caza aérea", 3),
 						(8, "Caza rastreo Agua", 3),
 						(9, "Caza Picada Agua", 3);
+
+INSERT INTO `tipo_estado` (`id`, `nombre_estado`, `descripcion`) VALUES 
+						(1, "Sin etiquetar", "Es el estado inicial del audio cuando es ingresado a la plataforma y no se han agregado etiquetas."),
+						(2, "Etiquetando", "Es el estado en el cual el audio estan agregando etiquetas."),
+						(3, "Finalizado", "Es el estado en que el audio ya se han realizado todas las etiquetas.");

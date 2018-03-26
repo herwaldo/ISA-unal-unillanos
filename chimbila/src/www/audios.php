@@ -81,6 +81,7 @@ $contador=1;
                         <th>No°</th>
                         <th>Nombre Audio</th>
                         <th>Colección</th>
+                        <th>Estado</th>
                         <th><center>Acción</center></th>
                     </thead>
                     <tbody>
@@ -90,7 +91,8 @@ $contador=1;
                             echo "  <td>".$contador."</td>";
                             echo "  <td>".$value['nombre_audio']."</td>";
                             echo "  <td>".utf8_encode($value['nombre'])."</td>";
-                            echo "  <td><a class='waves-effect waves-light blue btn' onclick =' anotarAudios(" .$value['id'] ."); '><i class='tiny material-icons left'>play_circle_outline</i>Abrir</a>  <a class='waves-effect waves-light yellow btn' onclick =' anotarAudios(" .$value['id'] ."); '><i class='tiny material-icons left'>edit</i>Modificar</a>  <a class='waves-effect waves-light red btn' onclick =' anotarAudios(" .$value['id'] ."); '><i class='tiny material-icons left'>delete</i>Eliminar</a></td>";
+                            echo "  <td>".utf8_encode($value['nombre'])."</td>";
+                            echo "  <td><a class='waves-effect waves-light blue btn-small white-text' onclick =' anotarAudios(" .$value['id'] ."); '><i class='material-icons left'>play_circle_outline</i>Abrir</a>  <a class='waves-effect waves-light yellow btn-small white-text' onclick =' anotarAudios(" .$value['id'] ."); '><i class='material-icons left'>edit</i>Modificar</a>  <a class='waves-effect waves-light red btn-small white-text' onclick =' anotarAudios(" .$value['id'] ."); '><i class='material-icons left'>delete</i>Eliminar</a></td>";
                             echo "</tr>";
                             $contador++;
                         }
