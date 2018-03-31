@@ -1,16 +1,10 @@
 <?php
 include('session.php');
-
-$codigo=$_POST["codigo"];
-$usuario=$identificacion;
-
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>CHIMBILA - Anotador de sonidos de murciélagos</title>
-    <!-- Para usar las tildes bién desde MySQL -->
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/materialize.min.css">
@@ -43,7 +37,6 @@ $usuario=$identificacion;
         </div>
       </nav>    
 
-    </div>
     <!-- Modal Structure -->
     <div id="instructions-modal" class="modal" style="max-height: 50% !important;">
         <div class="modal-footer">
@@ -52,6 +45,7 @@ $usuario=$identificacion;
         <div class="modal-content">
             <div id="instructions-container"></div>
             <div class="videowrapper">
+                asdkañkdñakdsñkñads
                 <iframe id="tutorial-video" width="50%" height="50%" frameborder="0" allowfullscreen></iframe>
             </div>
         </div>
@@ -64,11 +58,9 @@ $usuario=$identificacion;
         <div class="creation_stage_container"></div>
         <div class="submit_container"></div>
     </div>
-
-    <div style="background-color:#8FBC8F;" id="myDiv"></div>
     <script>
         var dataUrl = 'sample_data.json';
-        var postUrl = '/insertar.php' //'/<post_url>'; // This is where data posts to
+        var postUrl = '/<post_url>'; // This is where data posts to
     </script>
 
     <!-- Solo permite crear un espacio debajo del botón para que se vea mejor. -->

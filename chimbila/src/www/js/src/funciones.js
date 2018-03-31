@@ -13,6 +13,21 @@ function anotarAudios(cod){
 
 }
 
+function editarColeccion(cod){
+    var parametros = {
+        "codigo": cod,
+    };
+
+    alert(cod);
+}
+
+function eliminarColeccion(cod){
+    var parametros = {
+        "codigo": cod,
+    };
+    alert(cod);
+}
+
 function envia(cod){ //lo activas con un OnClick
 	var codigo = cod; //el input que contiene el dato se llama idarti
 	alert("entro para envio");
@@ -22,6 +37,10 @@ $.post('../../src/www/annotator.php', { codigo: codigo }, function (result) {
             WinId.document.write(result);
             WinId.document.close();
         });
+}
+
+function abrirColeccion(cod) {
+    
 }
 /*
 $.ajax({

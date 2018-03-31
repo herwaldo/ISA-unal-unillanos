@@ -46,11 +46,7 @@ function Annotator() {
         height: height,
         colorMap: spectrogramColorMap
     });
-	var slider = document.querySelector('#slider');
-	slider.oninput = function () {
-	  var zoomLevel = Number(slider.value);
-	  this.wavesurfer.zoom(zoomLevel);
-	};
+
     // Create labels (labels that appear above each region)
     var labels = Object.create(WaveSurfer.Labels);
     labels.init({
@@ -138,11 +134,9 @@ Annotator.prototype = {
             var tutorialVideoURL = my.currentTask.tutorialVideoURL;
             var alwaysShowTags = my.currentTask.alwaysShowTags;
             var instructions = my.currentTask.instructions;
-            var comportamientoTags = my.currentTask.comportamientoTag;
             my.stages.reset(
                 proximityTags,
                 annotationTags,
-                comportamientoTags,
                 annotationSolutions,
                 alwaysShowTags
             );
@@ -233,16 +227,15 @@ Annotator.prototype = {
                 // List of actions the user took to play and pause the audio
                 play_events: this.playBar.getEvents(),
                 // Boolean, if at the end, the user was shown what city the clip was recorded in
-                final_solution_shown: this.stages.aboveThreshold(),
-                audio_id:this.currentTask.url //YERFER: OBTENEMOS EL AUDIO QUE SE ESTÁ MOSTRANDO. CARGAMOS EL PATH CAMBIAR POR ID.
+                final_solution_shown: this.stages.aboveThreshold()
             };
 
-            //alert('Aquí estoy '+(content.annotations.length));
-            //var tamano = content.annotations.length;
-            //var contador;
-            //for( contador=0; contador < tamano; contador++ ) {
-            //    alert(content.annotations[contador]['start']);
-            //}
+            alert('Aquí estoy '+(content.annotations.length));
+            var tamano = content.annotations.length;
+            var contador;
+            for( contador=0; contador < tamano; contador++ ) {
+                alert(content.annotations[contador]['start']);
+            }
 
 
             if (this.stages.aboveThreshold()) {
@@ -262,23 +255,12 @@ Annotator.prototype = {
     // Make POST request, passing back the content data. On success load in the next task
     post: function (content) {
         var my = this;
-        var num = 69;
-        var params = {
-            "numFactorial" : num
-        };
-
         $.ajax({
-            type: 'post',
-            url: 'insertar.php',//$.getJSON(postUrl),
-            //contentType: 'application/json',
-            data: content,//params,//JSON.stringify(content),
-            dataType: 'html',
-            success:function (response) {                ///////////
-                $("#myDiv").html(response);
-                //alert("Variable: "+params["numFactorial"]);
-                //window.location.replace("/chimbila/src/www/insertar.php");            ///////////
-            }
-        })                                                 ///////////
+            type: 'POST',
+            url: $.getJSON(postUrl),
+            contentType: 'application/json',
+            data: JSON.stringify(content)
+        })
         .done(function(data) {
             // If the last task had a hiddenImage component, remove it
             if (my.currentTask.feedback === 'hiddenImage') {
