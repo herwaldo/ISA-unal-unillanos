@@ -18,7 +18,7 @@ header("Content-Type: text/html;charset=utf-8");
 
 //echo "HOLA ".$_POST["annotations"][0]["annotation"];
 //echo "PRoxi  ".$_POST["annotations"][0]["proximity"];
-//echo "ADUIO ".$_POST["audio_id"]; 
+//echo "ADUIO ".$_POST["audio_id"];
 //echo '<script language="javascript">alert("Insertando...  !");</script>';
 if ($_POST["audio_id"]=='4.5.wav'){ //COMPROBAMOS LA RECEPCIÓN DEL AUDIO POR POST.
     $audio_nombre = $row["nickname"]."_audio_1";//.$_POST["audio_id"]; //USAR MÁS ADELANTE BN.
