@@ -1,14 +1,18 @@
-INSERT INTO `coleccion` (`id`, `users_user_id`, `audio_id`, `nombre`) VALUES 
-						(1, 3, 1,'colección'),
-						(2, 3, 2,'colección'),
-						(3, 3, 3,'colección'),
-						(4, 3, 4,'colección'),
-						(5, 3, 5,'colección'),
-						(6, 3, 6,'colección'),
-						(7, 3, 7,'colección'),
-						(8, 3, 8,'colección'),
-						(9, 3, 9,'colección'),
-						(10, 3, 10,'colección'),
-						(11, 3, 11,'colección'),
-						(12, 3, 12,'colección'),
-						(13, 3, 13,'colección');
+INSERT INTO `jerarquia` (`nombre_coleccion`,`antecesor_id`, `usuario_id`) VALUES 
+						('Prueba',0, 3);
+
+
+INSERT INTO `coleccion` (`audio_id`, `jerarquia_id`,`jerarquia_usuario_id`,`tipo_estado_id`) VALUES 
+						(1, 1, 3, 1),
+						(2, 1, 3, 1),
+						(3, 1, 3, 1),
+						(4, 1, 3, 1),
+						(5, 1, 3, 2),
+						(6, 1, 3, 2),
+						(7, 1, 3, 3),
+						(8, 1, 3, 2),
+						(9, 1, 3, 2),
+						(10, 1, 3, 1),
+						(11, 1, 3, 2),
+						(12, 1, 3, 1),
+						(13, 1, 3, 1);

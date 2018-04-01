@@ -193,7 +193,7 @@ WorkflowBtns.prototype = {
         });
 
         this.exitBtn = $('<button>', {
-            text: 'SALIR AHORA',
+            text: 'Exit Now',
             class: 'exit btn',
         });
         this.exitBtn.click(function () {

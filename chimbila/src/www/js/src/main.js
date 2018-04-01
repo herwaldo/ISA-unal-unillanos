@@ -134,11 +134,9 @@ Annotator.prototype = {
             var tutorialVideoURL = my.currentTask.tutorialVideoURL;
             var alwaysShowTags = my.currentTask.alwaysShowTags;
             var instructions = my.currentTask.instructions;
-            var comportamientoTags = my.currentTask.comportamientoTag;
             my.stages.reset(
                 proximityTags,
                 annotationTags,
-                comportamientoTags,
                 annotationSolutions,
                 alwaysShowTags
             );
@@ -196,77 +194,6 @@ Annotator.prototype = {
             // If not, there is no need to make an additional request. Just update task specific data right away
             mainUpdate({});
         }
-
-        //alert("Acá se muestra al inicio?");
-        //Almacenamos la petición ajax en la variable request
-        var request = $.ajax
-        ({
-            url: "ConsultarAnotacion.php",
-            method: "POST",
-            dataType: "json"
-        });
-        //Usamos request y evaluamos usando done y fail, es lo recomendado por jQuery
-        //done se lanzará cuando la petición Ajax tenga éxito
-        request.done(function( datos )
-        {
-            // Creamos una variable y evaluamos datos
-            var txtHTML="";
-            if (!datos.error)
-            {
-                //Si se espera más de una fila hay que leer datos en un bucle
-                //txtHTML=datos.ID+"<br />"+datos.nombre ;
-                var anotacionesDatos = {
-                    'start': 0,
-                    'end': 0,
-                    'annotation': 0,
-                    'proximity': 0
-                };
-                var bandera = true;
-                var tiempo_ini = -1;
-                var tiempo_fin = -1;
-                var anotacion = "";
-                $.each(datos, function(i, object) {
-                    if (bandera){
-                        tiempo_ini = object["tiempo_ini"];
-                        tiempo_fin = object["tiempo_fin"];
-                        anotacion = object["etiqueta_id"];
-                        bandera = false;
-                    }else{
-                        if( (tiempo_ini == object["tiempo_ini"]) && (tiempo_fin == object["tiempo_fin"]) ){
-                            anotacionesDatos.start = my.formatearHora(object["tiempo_ini"]);
-                            anotacionesDatos.end = my.formatearHora(object["tiempo_fin"]);
-                            anotacionesDatos.annotation = anotacion;
-                            anotacionesDatos.proximity = object["etiqueta_id"];
-                            bandera = true;
-                            my.stages.setAnnotations(anotacionesDatos);  //DEBEMOS ENVIAR UN JSON CORRECTO.
-                        }
-                    }
-                    //$.each(object, function(property, value) {
-                        //txtHTML +=property + "=" + value+"<br/>";
-                        //alert ("Property "+property+" value"+value);
-                        //Prueba
-                        //console.log(property + "=" + value+"<br/>");
-                    //});
-                    //txtHTML +="<hr/>";
-
-                });
-            }else{
-                txtHTML=datos.error;
-            }
-            $('#myDiv').text(txtHTML);
-        });
-        //fail se lanzará cuando la petición Ajax falle
-        request.fail(function( jqXHR, textStatus )
-        {
-            alert( "Falló la petición Ajax: " + textStatus );
-        });
-    },
-
-    //Convierte el formato HH:MM:SS a SS.
-    formatearHora: function (tiempo) {
-        var tiempoVect = tiempo.split(":");
-        var tiempo = (tiempoVect[0]*3600) + (tiempoVect[1]*60) + (tiempoVect[2]);
-        return tiempo;
     },
 
     // Update the interface with the next task's data
@@ -300,16 +227,15 @@ Annotator.prototype = {
                 // List of actions the user took to play and pause the audio
                 play_events: this.playBar.getEvents(),
                 // Boolean, if at the end, the user was shown what city the clip was recorded in
-                final_solution_shown: this.stages.aboveThreshold(),
-                audio_id:this.currentTask.url //YERFER: OBTENEMOS EL AUDIO QUE SE ESTÁ MOSTRANDO. CARGAMOS EL PATH CAMBIAR POR ID.
+                final_solution_shown: this.stages.aboveThreshold()
             };
 
-            //alert('Aquí estoy '+(content.annotations.length));
-            //var tamano = content.annotations.length;
-            //var contador;
-            //for( contador=0; contador < tamano; contador++ ) {
-            //    alert(content.annotations[contador]['start']);
-            //}
+            alert('Aquí estoy '+(content.annotations.length));
+            var tamano = content.annotations.length;
+            var contador;
+            for( contador=0; contador < tamano; contador++ ) {
+                alert(content.annotations[contador]['start']);
+            }
 
 
             if (this.stages.aboveThreshold()) {
@@ -329,19 +255,12 @@ Annotator.prototype = {
     // Make POST request, passing back the content data. On success load in the next task
     post: function (content) {
         var my = this;
-        //document.write(JSON.stringify(content));
         $.ajax({
-            type: 'post',
-            url: 'insertar.php',//$.getJSON(postUrl),
-            //contentType: 'application/json',
-            data: content,//params,//JSON.stringify(content),
-            dataType: 'html',
-            success:function (response) {                //////////
-                $("#myDiv").html(response);
-                //alert("Variable: "+params["numFactorial"]);
-                //window.location.replace("/chimbila/src/www/insertar.php");            ///////////
-            }
-        })                                                 ///////////
+            type: 'POST',
+            url: $.getJSON(postUrl),
+            contentType: 'application/json',
+            data: JSON.stringify(content)
+        })
         .done(function(data) {
             // If the last task had a hiddenImage component, remove it
             if (my.currentTask.feedback === 'hiddenImage') {
