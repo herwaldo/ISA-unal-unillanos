@@ -46,7 +46,7 @@ header("location: audios.php");
                             src="http://virtual2.unillanos.edu.co/imagenes/unillanos_logo.png"
                             srcset="http://virtual2.unillanos.edu.co/imagenes/unillanos_logo.png 1.5x,
                             http://virtual2.unillanos.edu.co/imagenes/unillanos_logo.png 2x"
-                            alt="Unillanos Logo">
+                            alt="a cute kitten">
                 </picture>
             </div>
             <div>

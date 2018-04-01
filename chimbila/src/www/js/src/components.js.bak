@@ -39,7 +39,7 @@ var Util = {
             readonly: true
         });
 
-        var duration = $('<span>', {text: 'Duración:'});
+        var duration = $('<span>', {text: 'Duracion:'});
         var durationInput = $('<input>', {
             type: 'text',
             class: 'form-control duration',
@@ -186,7 +186,7 @@ WorkflowBtns.prototype = {
         var my = this;
         this.nextBtn = $('<button>', {
             class: 'btn submit',
-            text: 'CARGAR ANOTACIONES'
+            text: 'ENVIAR & CARGAR SIGUIENTE GRABACIÃ“N'
         });
         this.nextBtn.click(function () {
             $(my).trigger('submit-annotations');

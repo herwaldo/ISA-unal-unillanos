@@ -4,6 +4,8 @@ include('session.php');
 $codigo=$_POST["codigo"];
 $usuario=$identificacion;
 
+echo "codigo $codigo y usuario $usuario";
+
 ?>
 <!DOCTYPE html>
 <html>
