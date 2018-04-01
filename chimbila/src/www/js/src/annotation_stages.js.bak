@@ -330,7 +330,7 @@ AnnotationStages.prototype = {
         return regionData;
     },
 
-	setAnnotations: function(annotationData){
+    setAnnotations: function(annotationData){
         //alert(JSON.stringify(annotationData));
         var etiquetas = {
             1:"Fase de búsqueda (pases)",
@@ -382,9 +382,9 @@ AnnotationStages.prototype = {
                 var region = this.wavesurfer.regions.list[region_id];
                 if (region.annotation === '' || (this.usingProximity && region.proximity === '')) {
                     if (this.usingProximity) {
-                        Message.notifyAlert('Aseg&#250;rate de que todas tus anotaciones tengan una etiqueta de anotaci&#243;n y una etiqueta de proximidad!'); 
+                        Message.notifyAlert('Aseg&#250;rate de que todas tus anotaciones tengan una etiqueta de Frecuencia y una etiqueta de Fase!');
                     } else {
-                        Message.notifyAlert('Aseg&#250;rate de que todas tus anotaciones tengan una etiqueta!'); 
+                        Message.notifyAlert('Aseg&#250;rate de que todas tus anotaciones tengan una etiqueta Frecuencia y una etiqueta Fase!');
                     }
                     return false;
                 }

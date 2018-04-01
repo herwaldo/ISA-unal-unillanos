@@ -36,6 +36,8 @@ WaveSurfer.Regions = {
 
     /* Add a region. */
     add: function (params) {
+        //alert("Inicia la creación de una nueva.");
+        //alert(JSON.stringify(params));
         var region = Object.create(WaveSurfer.Region);
         region.init(params, this.wavesurfer);
 
@@ -44,7 +46,6 @@ WaveSurfer.Regions = {
         region.on('remove', (function () {
             delete this.list[region.id];
         }).bind(this));
-
         return region;
     },
 
@@ -67,8 +68,9 @@ WaveSurfer.Regions = {
         var drag;
         var start;
         var region;
-
+        alert("Dentro de la función enableDragSelection 1"); ///////////////////////////////
         function eventDown(e) {
+            alert("Dentro de la función eventDown");            ///////////////////////////////////
             drag = true;
             if (typeof e.targetTouches !== 'undefined' && e.targetTouches.length === 1) {
                 e.clientX = e.targetTouches[0].clientX;
@@ -82,27 +84,33 @@ WaveSurfer.Regions = {
             my.wrapper.removeEventListener('touchstart', eventDown);
             my.wrapper.removeEventListener('mousedown', eventDown);
         });
+        alert("Dentro de la función enableDragSelection 2");            ///////////////////////////
         function eventUp(e) {
             drag = false;
-
+            alert("Dentro de la función eventUp");            //////////////////////////////
             if (region) {
+                alert("Dentro del if");                                      ///////////////////////
                 region.fireEvent('update-end', e);
                 my.wavesurfer.fireEvent('region-update-end', region, e);
             }
-
+            alert("antes de salir de la función eventUp");      /////////////////////////
             region = null;
         }
         document.body.addEventListener('mouseup', eventUp);
         this.wrapper.addEventListener('touchend', eventUp);
         this.on('disable-drag-selection', function() {
+            alert("Dentro de la función disable-drag-selection"); //////////////////////////
             my.wrapper.removeEventListener('touchend', eventUp);
             document.body.removeEventListener('mouseup', eventUp);
         });
         function eventMove(e) {
+            alert("Dentro de la función eventMove");            ///////////////////
             if (!drag) { return; }
 
             if (!region) {
+                alert("Dentro del if dentro del eventMove");        ////////////////////
                 region = my.add(params || {});
+                alert("Antes de salir del if dentro del eventMove");        ////////////////////
             }
 
             var duration = my.wavesurfer.getDuration();
@@ -110,11 +118,13 @@ WaveSurfer.Regions = {
                 e.clientX = e.targetTouches[0].clientX;
             }
             var end = my.wavesurfer.drawer.handleEvent(e);
+            alert("Antes del region.update");        ////////////////////
             region.update({
                 start: Math.min(end * duration, start * duration),
                 end: Math.max(end * duration, start * duration)
             });
         }
+        alert("Último");        ////////////////////
         this.wrapper.addEventListener('mousemove', eventMove);
         this.wrapper.addEventListener('touchmove', eventMove);
         this.on('disable-drag-selection', function() {
@@ -138,7 +148,6 @@ WaveSurfer.Region = {
         this.wavesurfer = wavesurfer;
         this.wrapper = wavesurfer.drawer.wrapper;
         this.width = wavesurfer.drawer.wrapper.scrollWidth;
-
         this.id = params.id == null ? WaveSurfer.util.getId() : params.id;
         this.start = Number(params.start) || 0;
         this.end = params.end == null ?
@@ -153,14 +162,15 @@ WaveSurfer.Region = {
         this.attributes = params.attributes || {};
         this.annotation = params.annotation || '';
         this.proximity = params.proximity || '';
+        //this.comportamiento = params.comportamiento || '';
 
         this.maxLength = params.maxLength;
         this.minLength = params.minLength;
-
         this.bindInOut();
         this.render();
         this.wavesurfer.on('zoom', this.updateRender.bind(this));
         this.wavesurfer.fireEvent('region-created', this);
+        alert("this.start "+this.start+" this.end "+this.end+" this.annotation "+this.annotation+" this.proximity "+this.proximity);
 
     },
 
@@ -238,11 +248,9 @@ WaveSurfer.Region = {
         regionEl.className = 'wavesurfer-region';
         regionEl.title = this.formatTime(this.start, this.end);
         regionEl.setAttribute('data-id', this.id);
-
         for (var attrname in this.attributes) {
             regionEl.setAttribute('data-region-' + attrname, this.attributes[attrname]);
         }
-
         this.style(regionEl, {
             position: 'absolute',
             zIndex: 2,
@@ -250,7 +258,6 @@ WaveSurfer.Region = {
             top: '0px',
             textAlign: 'center'
         });
-
         /* Resize handles */
         if (this.resize) {
             var handleLeft = regionEl.appendChild(document.createElement('handle'));
@@ -272,7 +279,6 @@ WaveSurfer.Region = {
                 left: '100%'
             });
         }
-
         this.element = this.wrapper.appendChild(regionEl);
         this.handleLeft = handleLeft;
         this.handleRight = handleRight;

@@ -36,7 +36,7 @@ WaveSurfer.Regions = {
 
     /* Add a region. */
     add: function (params) {
-        //alert("Inicia la creaci髇 de una nueva.");
+        //alert("Inicia la creaci贸n de una nueva.");
         //alert(JSON.stringify(params));
         var region = Object.create(WaveSurfer.Region);
         region.init(params, this.wavesurfer);
@@ -68,9 +68,9 @@ WaveSurfer.Regions = {
         var drag;
         var start;
         var region;
-        //alert("Dentro de la funci髇 enableDragSelection 1"); ///////////////////////////////
+        //alert("Dentro de la funci贸n enableDragSelection 1"); ///////////////////////////////
         function eventDown(e) {
-            //alert("Dentro de la funci髇 eventDown");            ///////////////////////////////////
+            //alert("Dentro de la funci贸n eventDown");            ///////////////////////////////////
             drag = true;
             if (typeof e.targetTouches !== 'undefined' && e.targetTouches.length === 1) {
                 e.clientX = e.targetTouches[0].clientX;
@@ -84,27 +84,27 @@ WaveSurfer.Regions = {
             my.wrapper.removeEventListener('touchstart', eventDown);
             my.wrapper.removeEventListener('mousedown', eventDown);
         });
-        //alert("Dentro de la funci髇 enableDragSelection 2");            ///////////////////////////
+        //alert("Dentro de la funci贸n enableDragSelection 2");            ///////////////////////////
         function eventUp(e) {
             drag = false;
-            //alert("Dentro de la funci髇 eventUp");            //////////////////////////////
+            //alert("Dentro de la funci贸n eventUp");            //////////////////////////////
             if (region) {
                 //alert("Dentro del if");                                      ///////////////////////
                 region.fireEvent('update-end', e);
                 my.wavesurfer.fireEvent('region-update-end', region, e);
             }
-            //alert("antes de salir de la funci髇 eventUp");      /////////////////////////
+            //alert("antes de salir de la funci贸n eventUp");      /////////////////////////
             region = null;
         }
         document.body.addEventListener('mouseup', eventUp);
         this.wrapper.addEventListener('touchend', eventUp);
         this.on('disable-drag-selection', function() {
-            //alert("Dentro de la funci髇 disable-drag-selection"); //////////////////////////
+            //alert("Dentro de la funci贸n disable-drag-selection"); //////////////////////////
             my.wrapper.removeEventListener('touchend', eventUp);
             document.body.removeEventListener('mouseup', eventUp);
         });
         function eventMove(e) {
-            //alert("Dentro de la funci髇 eventMove");            ///////////////////
+            //alert("Dentro de la funci贸n eventMove");            ///////////////////
             if (!drag) { return; }
 
             if (!region) {
@@ -124,7 +124,7 @@ WaveSurfer.Regions = {
                 end: Math.max(end * duration, start * duration)
             });
         }
-        //alert("趌timo");        ////////////////////
+        //alert("脷ltimo");        ////////////////////
         this.wrapper.addEventListener('mousemove', eventMove);
         this.wrapper.addEventListener('touchmove', eventMove);
         this.on('disable-drag-selection', function() {

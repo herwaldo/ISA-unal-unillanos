@@ -122,11 +122,12 @@ StageThreeView.prototype = {
 
     // Replace the proximity and annotation elements with the new elements that contain the
     // tags in the proximityTags and annotationTags lists
-    updateTagContents: function(proximityTags, annotationTags) {
+    updateTagContents: function(proximityTags, annotationTags, comportamientoTags) {
         $('.tag_container', this.dom).empty();
         var proximity = this.createProximityTags(proximityTags);
         var annotation = this.createAnnotationTags(annotationTags);
-        $('.tag_container', this.dom).append([annotation, proximity]);
+        var comportamiento = this.createComportamientoTags(comportamientoTags);
+        $('.tag_container', this.dom).append([annotation, proximity, comportamiento]);
     },
 
     // Create proximity tag elements
@@ -190,6 +191,40 @@ StageThreeView.prototype = {
         });
 
         return annotation.append([annotationLabel, annotationContainer]);
+    },
+
+    // Create proximity tag elements CORREGIR ESTO
+    createComportamientoTags: function(comportamientoTags) {
+        if (comportamientoTags.length === 0) { return; }
+        var my = this;
+
+        var comportamiento = $('<div>');
+        var comportamientoLabel = $('<div>', {
+            class: 'stage_3_label',
+            text: 'El Comportamiento es:',
+        });
+
+        var comportamientoContainer = $('<div>', {
+            class: 'annotation_tags'//'proximity_tags'
+        });
+
+        comportamientoTags.forEach(function (tagName, index) {
+            var tag = $('<button>', {
+                class: 'annotation_tag btn comportamiento' + index + '_tag' + ' disabled',
+                text: tagName,
+            });
+            // When a proximity tag is clicked fire the 'change-tag' event with what proximity it is and
+            // colour that proximity is associated with
+            tag.click(function () {
+                $(my).trigger(
+                    'change-tag',
+                    [{comportamiento: tagName, color: my.colors[index]}]
+                );
+            });
+            comportamientoContainer.append(tag);
+        });
+
+        return comportamiento.append([comportamientoLabel, comportamientoContainer]);
     },
 
     // Update stage 3 dom with the current regions data
@@ -286,7 +321,8 @@ AnnotationStages.prototype = {
             'id': region.id,
             'start': region.start,
             'end': region.end,
-            'annotation': region.annotation
+            'annotation': region.annotation//, //Está trayendo los nombres más no los ID y falta agregar la del comportamiento.
+            //'':r
         };
         if (this.usingProximity) {
             regionData.proximity = region.proximity;
@@ -297,8 +333,8 @@ AnnotationStages.prototype = {
     setAnnotations: function(annotationData){
         //alert(JSON.stringify(annotationData));
         var etiquetas = {
-            1:"Fase de b�squeda (pases)",
-            2:"Fase de aproximaci�n",
+            1:"Fase de búsqueda (pases)",
+            2:"Fase de aproximación",
             3:"Fase terminal (feeding buzz)",
             4:"Frecuencia Modulada (FM)",
             5:"Frecuencia Constante (CF)",
@@ -484,11 +520,11 @@ AnnotationStages.prototype = {
     },
 
     // Reset field values and update the proximity tags, annotation tages and annotation solutions
-    reset: function(proximityTags, annotationTags, solution, alwaysShowTags) {
+    reset: function(proximityTags, annotationTags, comportamientoTags, solution, alwaysShowTags) {
         this.clear();
         // Update all Tags' Contents
         this.alwaysShowTags = alwaysShowTags || false;
-        this.updateContentsTags(proximityTags, annotationTags);
+        this.updateContentsTags(proximityTags, annotationTags, comportamientoTags);
         this.usingProximity = proximityTags.length > 0;
         // Update solution set
         this.annotationSolutions = solution.annotations || [];
@@ -496,10 +532,11 @@ AnnotationStages.prototype = {
     },
 
     // Update stage 3 dom with new proximity tags and annotation tags
-    updateContentsTags: function(proximityTags, annotationTags) {
+    updateContentsTags: function(proximityTags, annotationTags, comportamientoTags) {
         this.stageThreeView.updateTagContents(
             proximityTags,
-            annotationTags
+            annotationTags,
+            comportamientoTags
         );
     },
 

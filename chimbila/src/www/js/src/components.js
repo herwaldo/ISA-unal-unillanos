@@ -39,7 +39,7 @@ var Util = {
             readonly: true
         });
 
-        var duration = $('<span>', {text: 'Duración:'});
+        var duration = $('<span>', {text: 'DuraciÃ³n:'});
         var durationInput = $('<input>', {
             type: 'text',
             class: 'form-control duration',
@@ -193,7 +193,7 @@ WorkflowBtns.prototype = {
         });
 
         this.exitBtn = $('<button>', {
-            text: 'Exit Now',
+            text: 'SALIR AHORA',
             class: 'exit btn',
         });
         this.exitBtn.click(function () {
