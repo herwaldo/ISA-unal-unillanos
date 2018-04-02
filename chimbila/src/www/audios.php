@@ -30,16 +30,8 @@ $contador=1;
     <script type="text/javascript" src="js/src/components.js"></script>
     <script type="text/javascript" src="js/src/annotation_stages.js"></script>
     <script type="text/javascript" src="js/src/main.js" defer></script>
-<<<<<<< HEAD
-<<<<<<< HEAD
     <script type="text/javascript" src="js/src/funciones.js" defer></script>
     
-=======
-    <script type="text/javascript" src="js/src/funciones.js"></script>
->>>>>>> 9ecc03e7008154897f5351125763a3011e5d206a
-=======
-    <script type="text/javascript" src="js/src/funciones.js"></script>
->>>>>>> 9ecc03e7008154897f5351125763a3011e5d206a
 </head>
 <body>
     <nav>
