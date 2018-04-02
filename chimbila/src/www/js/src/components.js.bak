@@ -6,7 +6,6 @@
  * Dependencies:
  *   jQuey, audio-annotator.css
  */
-
 var Util = {
     // Convert seconds to timestamp string
     secondsToString: function(seconds) {
@@ -71,6 +70,7 @@ PlayBar.prototype = {
 
     // Return a string of the form "<current_time> / <clip_duration>" (Ex "00:03.644 / 00:10.796")
     getTimerText: function() {
+		
         return Util.secondsToString(this.wavesurfer.getCurrentTime()) +
                ' / ' + Util.secondsToString(this.wavesurfer.getDuration());
     },
@@ -80,14 +80,36 @@ PlayBar.prototype = {
     create: function() {
         var my = this;
         this.addWaveSurferEvents();
-
+        
         // Create the play button
         var playButton = $('<i>', {
             class: 'play_audio fa fa-play-circle',
         });
+		
         playButton.click(function () {
-            my.trackEvent('click-' + (my.wavesurfer.isPlaying() ? 'pause' : 'play'));
-            my.wavesurfer.playPause();
+			var duracionAudio = my.wavesurfer.getDuration();
+			tiempo_atras = document.getElementById("timeback").value;
+	        tiempo_adelante = document.getElementById("timenext").value;
+			if(finalizo){
+				my.trackEvent('click-' + (my.wavesurfer.isPlaying() ? 'pause' : 'play'));
+			if(tiemposelect!=0.0){
+				tiempo_atras = parseFloat(tiempo_atras);
+				tiempo_adelante = parseFloat(tiempo_adelante);
+				
+				if((tiemposelect-tiempo_atras) < 0 || (tiemposelect+tiempo_adelante > duracionAudio)){
+					alert("Los tiempos no son correctos");
+				}else{
+					alert(tiempo_atras + "  " + tiempo_adelante);
+					my.wavesurfer.play(tiemposelect - tiempo_atras,tiemposelect + tiempo_adelante);
+				}
+				
+			}	
+			else{my.wavesurfer.playPause();}
+			}else{
+				alert("Debe esperar a que finalice el audio inicialmente");
+			}
+            
+				
         });
         
         // Create audio timer text
