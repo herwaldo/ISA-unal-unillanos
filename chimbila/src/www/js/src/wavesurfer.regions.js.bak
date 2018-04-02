@@ -68,9 +68,9 @@ WaveSurfer.Regions = {
         var drag;
         var start;
         var region;
-        //alert("Dentro de la función enableDragSelection 1"); ///////////////////////////////
+        alert("Dentro de la función enableDragSelection 1"); ///////////////////////////////
         function eventDown(e) {
-            //alert("Dentro de la función eventDown");            ///////////////////////////////////
+            alert("Dentro de la función eventDown");            ///////////////////////////////////
             drag = true;
             if (typeof e.targetTouches !== 'undefined' && e.targetTouches.length === 1) {
                 e.clientX = e.targetTouches[0].clientX;
@@ -84,33 +84,33 @@ WaveSurfer.Regions = {
             my.wrapper.removeEventListener('touchstart', eventDown);
             my.wrapper.removeEventListener('mousedown', eventDown);
         });
-        //alert("Dentro de la función enableDragSelection 2");            ///////////////////////////
+        alert("Dentro de la función enableDragSelection 2");            ///////////////////////////
         function eventUp(e) {
             drag = false;
-            //alert("Dentro de la función eventUp");            //////////////////////////////
+            alert("Dentro de la función eventUp");            //////////////////////////////
             if (region) {
-                //alert("Dentro del if");                                      ///////////////////////
+                alert("Dentro del if");                                      ///////////////////////
                 region.fireEvent('update-end', e);
                 my.wavesurfer.fireEvent('region-update-end', region, e);
             }
-            //alert("antes de salir de la función eventUp");      /////////////////////////
+            alert("antes de salir de la función eventUp");      /////////////////////////
             region = null;
         }
         document.body.addEventListener('mouseup', eventUp);
         this.wrapper.addEventListener('touchend', eventUp);
         this.on('disable-drag-selection', function() {
-            //alert("Dentro de la función disable-drag-selection"); //////////////////////////
+            alert("Dentro de la función disable-drag-selection"); //////////////////////////
             my.wrapper.removeEventListener('touchend', eventUp);
             document.body.removeEventListener('mouseup', eventUp);
         });
         function eventMove(e) {
-            //alert("Dentro de la función eventMove");            ///////////////////
+            alert("Dentro de la función eventMove");            ///////////////////
             if (!drag) { return; }
 
             if (!region) {
-                //alert("Dentro del if dentro del eventMove");        ////////////////////
+                alert("Dentro del if dentro del eventMove");        ////////////////////
                 region = my.add(params || {});
-                //alert("Antes de salir del if dentro del eventMove");        ////////////////////
+                alert("Antes de salir del if dentro del eventMove");        ////////////////////
             }
 
             var duration = my.wavesurfer.getDuration();
@@ -118,13 +118,13 @@ WaveSurfer.Regions = {
                 e.clientX = e.targetTouches[0].clientX;
             }
             var end = my.wavesurfer.drawer.handleEvent(e);
-            //alert("Antes del region.update");        ////////////////////
+            alert("Antes del region.update");        ////////////////////
             region.update({
                 start: Math.min(end * duration, start * duration),
                 end: Math.max(end * duration, start * duration)
             });
         }
-        //alert("Último");        ////////////////////
+        alert("Último");        ////////////////////
         this.wrapper.addEventListener('mousemove', eventMove);
         this.wrapper.addEventListener('touchmove', eventMove);
         this.on('disable-drag-selection', function() {

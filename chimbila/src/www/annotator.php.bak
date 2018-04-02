@@ -1,10 +1,10 @@
 <?php
 include('session.php');
 
-//$codigo=$_POST["codigo"];
-//usuario=$identificacion;
+$codigo=$_POST["codigo"];
+$usuario=$identificacion;
 
-//echo "codigo $codigo y usuario $usuario";
+echo "codigo $codigo y usuario $usuario";
 
 ?>
 <!DOCTYPE html>
@@ -45,6 +45,7 @@ include('session.php');
         </div>
       </nav>    
 
+    </div>
     <!-- Modal Structure -->
     <div id="instructions-modal" class="modal" style="max-height: 50% !important;">
         <div class="modal-footer">
@@ -69,7 +70,7 @@ include('session.php');
     <div style="background-color:#8FBC8F;" id="myDiv"></div>
     <script>
         var dataUrl = 'sample_data.json';
-        var postUrl = '/insertar.php'; //'/<post_url>'; // This is where data posts to
+        var postUrl = '/insertar.php' //'/<post_url>'; // This is where data posts to
     </script>
 
     <!-- Solo permite crear un espacio debajo del botón para que se vea mejor. -->
