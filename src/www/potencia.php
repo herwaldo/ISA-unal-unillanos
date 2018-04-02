@@ -62,7 +62,7 @@ include('session.php');
         <div class="labels"></div>
         <div class="audio_visual"></div>
         <div class="play_bar"></div>
-		 <div class="interval" style="position:relative; width: 450px; margin:auto; font-weight: bold">Segundos atras:<input type="text" id="timeback" value="0.0" style="width: 10%;text-align:center; " /> / Segundos adelante: <input type="text" id="timenext" value="0.0" style="width: 10%;text-align:center;" /></div>
+		 <div class="interval" style="position:relative; width: 450px; margin:auto; font-weight: bold">Segundos atras:<input type="number" id="timeback" value="0.0" style="width: 10%;text-align:center; " /> / Segundos adelante: <input type="number" id="timenext" value="0.0" style="width: 10%;text-align:center;" /></div>
         <div class="hidden_img"></div>
         <div class="creation_stage_container"></div>
         <div class="submit_container"></div>
@@ -90,7 +90,7 @@ include('session.php');
 	  var finalizo = false;
 	  
 	function preload() {
-	mySound = loadSound('sample.mp3');
+	mySound = loadSound('4.5.wav');
 	}
 	function setup(){
 	  var canvas  = createCanvas(2000,400);
@@ -134,6 +134,13 @@ include('session.php');
 		Plotly.plot( TESTER, [{
 		x: pointsX,
 		y: pointsY }], {
+		title: 'Potencia de la señal',
+		  xaxis: {
+			title: 'tiempo'
+		  },
+		  yaxis: {
+			title: 'potencia'
+		  },
 		margin: { t: 0 } } );
 		TESTER.on('plotly_click', function(data){
 		  var pts = '';
@@ -143,7 +150,7 @@ include('session.php');
 				time = data.points[i].x;
 			}
 			tiemposelect = time;
-		  alert(pts);
+		  //alert(pts);
 		});
 	  coordenadasXY = []; 
 	  finalizo = true;
