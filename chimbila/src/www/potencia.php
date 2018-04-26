@@ -17,7 +17,8 @@ include('session.php');
     <script type="text/javascript" src="js/lib/wavesurfer.min.js"></script>
     <script type="text/javascript" src="js/lib/wavesurfer.spectrogram.min.js"></script>
 	<script type="text/javascript" src="js/lib/p5.min.js"></script>
-	<script type="text/javascript" src="js/lib/p5.dom.min.js"></script>
+	<!--<script type="text/javascript" src="js/lib/p5.dom.min.js"></script>-->
+	<script type="text/javascript" src="js/lib/p5.dom.js"></script>
 	<script type="text/javascript" src="js/lib/p5.sound.js"></script>
 	<script type="text/javascript" src="js/lib/sketch.js"></script>
 	<script type="text/javascript" src="js/lib/plotly-latest.min.js"></script>
