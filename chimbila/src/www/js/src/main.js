@@ -135,10 +135,12 @@ Annotator.prototype = {
             var alwaysShowTags = my.currentTask.alwaysShowTags;
             var instructions = my.currentTask.instructions;
             var comportamientoTags = my.currentTask.comportamientoTag;
+            var murcielagosTags = my.currentTask.murcielagosTag;
             my.stages.reset(
                 proximityTags,
                 annotationTags,
                 comportamientoTags,
+                murcielagosTags,
                 annotationSolutions,
                 alwaysShowTags
             );
@@ -179,7 +181,9 @@ Annotator.prototype = {
             // Update the visualization type and the feedback type and load in the new audio clip
             my.wavesurfer.params.visualization = my.currentTask.visualization; // invisible, spectrogram, waveform
             my.wavesurfer.params.feedback = my.currentTask.feedback; // hiddenImage, silent, notify, none 
-            my.wavesurfer.load(my.currentTask.url);
+            //my.wavesurfer.load(my.currentTask.url); //Este por defecto lee el audio desde el JSON.
+            my.wavesurfer.load("../../../"+pathAudio); //Este debe leer el audio que recibe annotator.php por POST.
+            //alert(pathAudio);
         };
 
         if (this.currentTask.feedback !== 'none') {
@@ -197,6 +201,8 @@ Annotator.prototype = {
             mainUpdate({});
         }
 
+        //PARTE NO FUNCIONAL AÚN...
+        /*
         //alert("Acá se muestra al inicio?");
         //Almacenamos la petición ajax en la variable request
         var request = $.ajax
@@ -219,7 +225,9 @@ Annotator.prototype = {
                     'start': 0,
                     'end': 0,
                     'annotation': 0,
-                    'proximity': 0
+                    'proximity': 0,
+                    'comportamiento': 0,
+                    'murcielago': 0
                 };
                 var bandera = true;
                 var tiempo_ini = -1;
@@ -260,7 +268,10 @@ Annotator.prototype = {
         {
             alert( "Falló la petición Ajax: " + textStatus );
         });
+        */
+        //PARTE NO FUNCIONAL AÚN.
     },
+
 
     //Convierte el formato HH:MM:SS a SS.
     formatearHora: function (tiempo) {
@@ -301,7 +312,7 @@ Annotator.prototype = {
                 play_events: this.playBar.getEvents(),
                 // Boolean, if at the end, the user was shown what city the clip was recorded in
                 final_solution_shown: this.stages.aboveThreshold(),
-                audio_id:this.currentTask.url //YERFER: OBTENEMOS EL AUDIO QUE SE ESTÁ MOSTRANDO. CARGAMOS EL PATH CAMBIAR POR ID.
+                audio_id:idAudio
             };
 
             //alert('Aquí estoy '+(content.annotations.length));
@@ -337,7 +348,7 @@ Annotator.prototype = {
             data: content,//params,//JSON.stringify(content),
             dataType: 'html',
             success:function (response) {                //////////
-                $("#myDiv").html(response);
+                //$("#myDiv").html(response);
                 //alert("Variable: "+params["numFactorial"]);
                 //window.location.replace("/chimbila/src/www/insertar.php");            ///////////
             }

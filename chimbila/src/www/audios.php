@@ -1,7 +1,7 @@
 <?php
 include('session.php');
-$resultado = mysqli_query($db,"SELECT a.nombre_audio, a.id,j.nombre_coleccion FROM audio a, coleccion c, jerarquia j WHERE a.id=c.audio_id AND c.jerarquia_id=j.id AND j.usuario_id=".$identificacion."");
-$coleccion = mysqli_query($db,"SELECT nombre_coleccion FROM jerarquia WHERE jerarquia.usuario_id=".$identificacion."");
+$resultado = mysqli_query($db,"SELECT a.nombre_audio, a.id, j.nombre_coleccion, t.nombre_estado FROM audio a, coleccion c, jerarquia j, tipo_estado t WHERE a.id=c.audio_id AND c.jerarquia_id=j.id AND t.id=c.tipo_estado_id AND j.usuario_id=".$identificacion."");
+$coleccion = mysqli_query($db,"SELECT nombre_coleccion,antecesor_id FROM jerarquia WHERE jerarquia.usuario_id=".$identificacion."");
 $contador=1;
 ?>
 <!DOCTYPE html>
@@ -11,11 +11,13 @@ $contador=1;
     <!-- Para usar las tildes bién desde MySQL -->
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">-->
+    <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href="css/icon.css" rel="stylesheet">
     <link rel="stylesheet" href="css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="css/audio-annotator.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <script type="text/javascript" src="js/lib/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="js/lib/materialize.min.js"></script>
     <script type="text/javascript" src="js/lib/wavesurfer.min.js"></script>
@@ -30,23 +32,27 @@ $contador=1;
     <script type="text/javascript" src="js/src/components.js"></script>
     <script type="text/javascript" src="js/src/annotation_stages.js"></script>
     <script type="text/javascript" src="js/src/main.js" defer></script>
-    <script type="text/javascript" src="js/src/funciones.js" defer></script>
-    
+    <script type="text/javascript" src="js/src/funciones.js"></script>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Para la paginación fuente: https://github.com/pinzon1992/materialize_table_pagination -->
+    <script type="text/javascript" src="js/src/pagination.js"></script>
 </head>
 <body>
     <nav>
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo">CHIMBILA</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li>Usuario : <?php echo $login_session; ?></li>
-            <li><a href="logout.php">Cerrar sesión</a></li>
-            <li><a class ="modal-trigger btn" id="trigger" href="#instructions-modal">Instrucciones</a></li>
-          </ul>
+            <a href="audios.php" class="brand-logo">CHIMBILA</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li>Usuario : <?php echo $login_session; ?></li>
+                <li><a href="logout.php">Cerrar sesión</a></li>
+                <li><a class ="modal-trigger btn" id="trigger" href="#instructions-modal">Instrucciones</a></li>
+            </ul>
         </div>
-    </nav>    
+    </nav>
 
     <!-- Modal Structure -->
-    <div id="instructions-modal" class="modal" style="max-height: 50% !important;">
+    <div id="instructions-modal" class="modal" style="max-height: 80% !important;">
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cerrar</a>
         </div>
@@ -60,11 +66,13 @@ $contador=1;
 
     <div class="row">
         <div class="col s3">
-            <h4>Colecciones</h4>
+            <h4>Mis Colecciones</h4>
             <ul>
                 <?php
+                $px = "px";
                 foreach ($coleccion as $key => $col) {
-                    echo "<li>".utf8_encode($col['nombre_coleccion'])."</li>";
+                    //$eco = $col["antecesor_id"]*20;
+                    echo "<li style='padding-left: 0$px'>".utf8_encode($col['nombre_coleccion'])."</li>";
                 }
                 ?>
             </ul>
@@ -78,8 +86,8 @@ $contador=1;
                 <a class="waves-effect waves-light btn"><i class="material-icons left">add_circle</i>Agregar Subcolección</a>
             </div>
             <div>
-                <h3>Prueba de título</h3>
-                <table>
+                <h3>Mis Audios</h3>
+                <table cellpadding="1" cellspacing="1" class="table table-hover" id="myTable">
                     <thead>
                         <th>No°</th>
                         <th>Nombre Audio</th>
@@ -94,7 +102,7 @@ $contador=1;
                             echo "  <td>".$contador."</td>";
                             echo "  <td>".$value['nombre_audio']."</td>";
                             echo "  <td>".utf8_encode($value['nombre_coleccion'])."</td>";
-                            echo "  <td>".utf8_encode($value['nombre_coleccion'])."</td>";
+                            echo "  <td>".utf8_encode($value['nombre_estado'])."</td>";
                             echo "  <td><a class='waves-effect waves-light blue btn-small white-text' onclick =' anotarAudios(" .$value['id'] ."); '><i class='material-icons left'>play_circle_outline</i></a>  <a class='waves-effect waves-light yellow btn-small white-text' onclick =' editarColeccion(" .$value['id'] ."); '><i class='material-icons left'>edit</i></a>  <a class='waves-effect waves-light red btn-small white-text' onclick =' eliminarColeccion(" .$value['id'] ."); '><i class='material-icons left'>delete</i></a></td>";
                             echo "</tr>";
                             $contador++;
@@ -102,6 +110,10 @@ $contador=1;
                         ?>
                     </tbody>
                 </table>
+                <div class="col-md-12 center text-center">
+                    <span class="left" id="total_reg"></span>
+                    <ul class="pagination pager" id="myPager"></ul>
+                </div>
             </div>
         </div>
     </div>
@@ -146,5 +158,34 @@ $contador=1;
         var postUrl = '/<post_url>'; // This is where data posts to
     </script>
     <script type="text/javascript" src="js/src/funciones.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#myTable').pageMe({
+                pagerSelector:'#myPager',
+                activeColor: 'green',
+                prevText:'Anterior',
+                nextText:'Siguiente',
+                showPrevNext:true,
+                hidePageNumbers:false,
+                perPage:5
+            });
+
+            // Write on keyup event of keyword input element
+            /*$("#search").keyup(function(){
+
+                _this = this;
+                // Show only matching TR, hide rest of them
+                $.each($("#tabla tbody tr"), function() {
+                        alert("Encontrado");
+                        if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+                             $(this).hide();
+                        else
+                             $(this).show();
+                });
+            }); */
+
+        });
+    </script>
 </body>
 </html>

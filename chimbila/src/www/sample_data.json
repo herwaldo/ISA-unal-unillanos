@@ -4,9 +4,10 @@
         "visualization": "spectrogram",
         "proximityTag": ["Fase de búsqueda (pases)", "Fase de aproximación", "Fase terminal (feeding buzz)"],
         "annotationTag": ["Frecuencia Modulada (FM)", "Frecuencia Constante (CF)", "Frecuencia cuasi-constantes (QCF)"],
-        "comportamientoTag":["Caza aérea", "Caza rastreo Agua", "Caza Picada Agua"],
-        "url": "4.5.wav",
-        "tutorialVideoURL":"https://www.youtube.com/embed/PQIH5CJmPj4",
+        "comportamientoTag": ["Caza aérea", "Caza Arrastre Agua", "Caza Picada Agua"],
+        "murcielagosTag": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "+10"],
+        "url": "../../../chimbila/Audios/Yerfer/yerfer_audio_1.wav   ",
+        "tutorialVideoURL":"https://www.youtube.com/embed/k_BPxIZJX9I",
         "alwaysShowTags": true,
         "instructions": [
             "Resalta &amp; Etiqueta Cada Sonido",

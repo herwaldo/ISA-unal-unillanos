@@ -1,7 +1,7 @@
 <?php
 include('session.php');
-$resultado = mysqli_query($db,"SELECT c.nombre, a.nombre_audio, a.id FROM audio a, coleccion c, usuario u WHERE a.id=c.audio_id AND c.users_user_id=u.id AND u.id=".$identificacion."");
-$coleccion = mysqli_query($db,"SELECT DISTINCT nombre FROM coleccion WHERE users_user_id=".$identificacion."");
+$resultado = mysqli_query($db,"SELECT a.nombre_audio, a.id,j.nombre_coleccion FROM audio a, coleccion c, jerarquia j WHERE a.id=c.audio_id AND c.jerarquia_id=j.id AND j.usuario_id=".$identificacion."");
+$coleccion = mysqli_query($db,"SELECT nombre_coleccion FROM jerarquia WHERE jerarquia.usuario_id=".$identificacion."");
 $contador=1;
 ?>
 <!DOCTYPE html>
@@ -30,7 +30,8 @@ $contador=1;
     <script type="text/javascript" src="js/src/components.js"></script>
     <script type="text/javascript" src="js/src/annotation_stages.js"></script>
     <script type="text/javascript" src="js/src/main.js" defer></script>
-    <script type="text/javascript" src="js/src/funciones.js"></script>
+    <script type="text/javascript" src="js/src/funciones.js" defer></script>
+    
 </head>
 <body>
     <nav>
@@ -63,7 +64,7 @@ $contador=1;
             <ul>
                 <?php
                 foreach ($coleccion as $key => $col) {
-                    echo "<li>".utf8_encode($col['nombre'])."</li>";
+                    echo "<li>".utf8_encode($col['nombre_coleccion'])."</li>";
                 }
                 ?>
             </ul>
@@ -72,7 +73,9 @@ $contador=1;
         <br><br>
         <div class="col s9">
             <div>
-                <a class="waves-effect waves-light btn"><i class="material-icons left">add_circle</i>Agregar Colección</a>
+                <a class="modal-trigger waves-effect waves-light btn" id="trigger" href="#CrearColeccion-modal"><i class="material-icons left">add_circle</i>Agregar Colección</a>
+
+                <a class="waves-effect waves-light btn"><i class="material-icons left">add_circle</i>Agregar Subcolección</a>
             </div>
             <div>
                 <h3>Prueba de título</h3>
@@ -90,9 +93,9 @@ $contador=1;
                             echo "<tr>";
                             echo "  <td>".$contador."</td>";
                             echo "  <td>".$value['nombre_audio']."</td>";
-                            echo "  <td>".utf8_encode($value['nombre'])."</td>";
-                            echo "  <td>".utf8_encode($value['nombre'])."</td>";
-                            echo "  <td><a class='waves-effect waves-light blue btn-small white-text' onclick =' anotarAudios(" .$value['id'] ."); '><i class='material-icons left'>play_circle_outline</i>Abrir</a>  <a class='waves-effect waves-light yellow btn-small white-text' onclick =' anotarAudios(" .$value['id'] ."); '><i class='material-icons left'>edit</i>Modificar</a>  <a class='waves-effect waves-light red btn-small white-text' onclick =' anotarAudios(" .$value['id'] ."); '><i class='material-icons left'>delete</i>Eliminar</a></td>";
+                            echo "  <td>".utf8_encode($value['nombre_coleccion'])."</td>";
+                            echo "  <td>".utf8_encode($value['nombre_coleccion'])."</td>";
+                            echo "  <td><a class='waves-effect waves-light blue btn-small white-text' onclick =' anotarAudios(" .$value['id'] ."); '><i class='material-icons left'>play_circle_outline</i></a>  <a class='waves-effect waves-light yellow btn-small white-text' onclick =' editarColeccion(" .$value['id'] ."); '><i class='material-icons left'>edit</i></a>  <a class='waves-effect waves-light red btn-small white-text' onclick =' eliminarColeccion(" .$value['id'] ."); '><i class='material-icons left'>delete</i></a></td>";
                             echo "</tr>";
                             $contador++;
                         }
@@ -100,9 +103,48 @@ $contador=1;
                     </tbody>
                 </table>
             </div>
-            
         </div>
     </div>
 
+    <!-- Modal Form Colección -->
+    <div id="CrearColeccion-modal" class="modal" style="max-height: 50% !important;">
+        <div class="modal-content" id="modal">
+            <form method = "post" id="formulario">
+              <label for="NameColecion" >Nombre Colección:</label>
+              <input id="NameColeccion" type = "text" name = "NameColeccion"  placeholder="Capturas viernes 10 febrero" class = "box" required/><br /><br />
+              <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cerrar</a>
+              <input type="submit" onclick="crearColeccion();" class="btn btn-primary" value="Agregar">
+              <!--input type = "submit" name="submit" value = " Login "/--><br/>
+           </form> 
+        </div>
+    </div>
+
+    <!-- Modal Form SubColección -->
+    <div id="CrearSubColeccion-modal" class="modal" style="max-height: 50% !important;">
+        <div class="modal-content" id="modal">
+            <form method = "post" id="formulario2">
+              <label for="NameSubColecion" >Nombre SubColección:</label>
+              <input id="NamSubColeccion" type = "text" name = "NameSubColeccion"  placeholder="Capturas viernes 10 febrero" class = "box" required/><br /><br />
+              <label for="SubColeccion_select"> Colección Principal:</label>
+              <select name="SubColeccion_select" class = "browser-default">
+                <?php
+                    foreach ($coleccion as $key => $col) {
+                        echo "<option value=".$col['id'].">".utf8_encode($col['nombre_coleccion'])."</option>";
+                    }
+                ?>
+              </select>
+              <br><br><br>
+              <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cerrar</a>
+              <input type="submit" onclick="crearSubColeccion();" class="btn btn-primary" value="Agregar">
+              <!--input type = "submit" name="submit" value = " Login "/--><br/>
+           </form> 
+        </div>
+    </div>
+
+    <script>
+        var dataUrl = 'sample_data.json';
+        var postUrl = '/<post_url>'; // This is where data posts to
+    </script>
+    <script type="text/javascript" src="js/src/funciones.js"></script>
 </body>
 </html>

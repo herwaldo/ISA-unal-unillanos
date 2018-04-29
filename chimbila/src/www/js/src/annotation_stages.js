@@ -122,12 +122,13 @@ StageThreeView.prototype = {
 
     // Replace the proximity and annotation elements with the new elements that contain the
     // tags in the proximityTags and annotationTags lists
-    updateTagContents: function(proximityTags, annotationTags, comportamientoTags) {
+    updateTagContents: function(proximityTags, annotationTags, comportamientoTags, murcielagosTags) {
         $('.tag_container', this.dom).empty();
         var proximity = this.createProximityTags(proximityTags);
         var annotation = this.createAnnotationTags(annotationTags);
         var comportamiento = this.createComportamientoTags(comportamientoTags);
-        $('.tag_container', this.dom).append([annotation, proximity, comportamiento]);
+        var nmuercielagos = this.createMurcielagosTags(murcielagosTags);
+        $('.tag_container', this.dom).append([proximity, annotation, comportamiento, nmuercielagos]);
     },
 
     // Create proximity tag elements
@@ -185,7 +186,9 @@ StageThreeView.prototype = {
             });
             // When a proximity tag is clicked fire the 'change-tag' event with what annotation tag it is
             tag.click(function () {
-                $(my).trigger('change-tag', [{annotation: tagName}]);
+                $(my).trigger(
+                    'change-tag',
+                    [{annotation: tagName}]);
             });
             annotationContainer.append(tag);
         });
@@ -194,6 +197,39 @@ StageThreeView.prototype = {
     },
 
     // Create proximity tag elements CORREGIR ESTO
+    createMurcielagosTags: function(murcielagosTags) {
+        if (murcielagosTags.length === 0) { return; }
+        var my = this;
+
+        var murcielagos = $('<div>');
+        var muercielagosLabel = $('<div>', {
+            class: 'stage_3_label',
+            text: 'Cantidad:',
+        });
+
+        var murcielagosContainer = $('<div>', {
+            class: 'murcielago_tags'//'proximity_tags'
+        });
+
+        murcielagosTags.forEach(function (tagName, index) {
+            var tag = $('<button>', {
+                class: 'murcielago_tag btn disabled',
+                text: tagName,
+            });
+            // When a proximity tag is clicked fire the 'change-tag' event with what proximity it is and
+            // colour that proximity is associated with
+            tag.click(function () {
+                $(my).trigger(
+                    'change-tag',
+                    [{murcielago: tagName, color: my.colors[index]}]
+                );
+            });
+            murcielagosContainer.append(tag);
+        });
+
+        return murcielagos.append([muercielagosLabel, murcielagosContainer]);
+    },
+
     createComportamientoTags: function(comportamientoTags) {
         if (comportamientoTags.length === 0) { return; }
         var my = this;
@@ -205,12 +241,12 @@ StageThreeView.prototype = {
         });
 
         var comportamientoContainer = $('<div>', {
-            class: 'annotation_tags'//'proximity_tags'
+            class: 'comportamiento_tags'//'proximity_tags'
         });
 
         comportamientoTags.forEach(function (tagName, index) {
             var tag = $('<button>', {
-                class: 'annotation_tag btn comportamiento' + index + '_tag' + ' disabled',
+                class: 'comportamiento_tag btn comportamiento' + index + '_tag' + ' disabled',
                 text: tagName,
             });
             // When a proximity tag is clicked fire the 'change-tag' event with what proximity it is and
@@ -246,9 +282,15 @@ StageThreeView.prototype = {
     updateSelectedTags: function(region) {
         $('.annotation_tag', this.dom).removeClass('selected');
         $('.proximity_tag', this.dom).removeClass('selected');
+        $('.comportamiento_tag', this.dom).removeClass('selected');
+        $('.murcielago_tag', this.dom).removeClass('selected');
+
         $('.custom_tag input', this.dom).val('');
+
         $('.annotation_tag', this.dom).removeClass('disabled');
         $('.proximity_tag', this.dom).removeClass('disabled');
+        $('.comportamiento_tag', this.dom).removeClass('disabled');
+        $('.murcielago_tag', this.dom).removeClass('disabled');
 
         if (region.annotation) {
             var selectedTags = $('.annotation_tag', this.dom).filter(function () {
@@ -264,6 +306,20 @@ StageThreeView.prototype = {
         if (region.proximity) {
             var selectedTags = $('.proximity_tag', this.dom).filter(function () {
                 return this.innerHTML === region.proximity;
+            });
+            selectedTags.addClass('selected');
+        }
+
+        if (region.comportamiento) {
+            var selectedTags = $('.comportamiento_tag', this.dom).filter(function () {
+                return this.innerHTML === region.comportamiento;
+            });
+            selectedTags.addClass('selected');
+        }
+
+        if (region.murcielago) {
+            var selectedTags = $('.murcielago_tag', this.dom).filter(function () {
+                return this.innerHTML === region.murcielago;
             });
             selectedTags.addClass('selected');
         }
@@ -321,7 +377,9 @@ AnnotationStages.prototype = {
             'id': region.id,
             'start': region.start,
             'end': region.end,
-            'annotation': region.annotation//, //Está trayendo los nombres más no los ID y falta agregar la del comportamiento.
+            'annotation': region.annotation,//, //Está trayendo los nombres más no los ID y falta agregar la del comportamiento.
+            'comportamiento': region.comportamiento,
+            'murcielagos': region.murcielago
             //'':r
         };
         if (this.usingProximity) {
@@ -330,6 +388,7 @@ AnnotationStages.prototype = {
         return regionData;
     },
 
+    //Esta parte aún NO es funcional...
     setAnnotations: function(annotationData){
         //alert(JSON.stringify(annotationData));
         var etiquetas = {
@@ -352,6 +411,7 @@ AnnotationStages.prototype = {
             this.wavesurfer.regions.add(regionData);
         //}
     },
+    //Esta parte aún NO es funcional.
 
     // Return an array of all the annotations the user has made for this clip
     getAnnotations: function() {
@@ -377,14 +437,25 @@ AnnotationStages.prototype = {
 
     // Check that all the annotations have the required tags, if not alert the user
     annotationDataValidationCheck: function() {
+        //return true;
         if (this.wavesurfer.regions) {
             for (var region_id in this.wavesurfer.regions.list) {
                 var region = this.wavesurfer.regions.list[region_id];
+                /* Original
                 if (region.annotation === '' || (this.usingProximity && region.proximity === '')) {
                     if (this.usingProximity) {
                         Message.notifyAlert('Aseg&#250;rate de que todas tus anotaciones tengan una etiqueta de Frecuencia y una etiqueta de Fase!');
                     } else {
                         Message.notifyAlert('Aseg&#250;rate de que todas tus anotaciones tengan una etiqueta Frecuencia y una etiqueta Fase!');
+                    }
+                    return false;
+                }
+                */
+                if (this.usingProximity && region.proximity === '') {
+                    if (this.usingProximity) {
+                        Message.notifyAlert('Mensaje de error 1');
+                    } else {
+                        Message.notifyAlert('Mensaje de error 2');
                     }
                     return false;
                 }
@@ -399,12 +470,16 @@ AnnotationStages.prototype = {
             this.currentRegion.update({drag: false, resize: false});
             $(this.currentRegion.element).removeClass('current_region');
             $(this.currentRegion.annotationLabel.element).removeClass('current_label');
-
+            //alert("Ya no desactiva los 2 botones cuando se cliquean");
             // Remove the highlated label and disable.
             $('.annotation_tag', this.dom).removeClass('selected');
             $('.proximity_tag', this.dom).removeClass('selected');
             $('.annotation_tag', this.dom).addClass('disabled');
             $('.proximity_tag', this.dom).addClass('disabled');
+            $('.comportamiento_tag', this.dom).removeClass('selected');
+            $('.murcielago_tag', this.dom).removeClass('selected');
+            $('.comportamiento_tag', this.dom).addClass('disabled');
+            $('.murcielago_tag', this.dom).addClass('disabled');
         }
 
         // If the user is switch to stage 3, enable drag and resize editing for the new current region. 
@@ -427,7 +502,7 @@ AnnotationStages.prototype = {
             this.blockDeselect = false;
         } else {
             if (this.currentRegion != null) {
-                // Disable drag and resize editing for the old current region. 
+                // Disable drag and resize editing for the old current region.
                 // Also remove the highlight of the label and region border
                 this.currentRegion.update({drag: false, resize: false});
                 $(this.currentRegion.element).removeClass('current_region');
@@ -438,6 +513,11 @@ AnnotationStages.prototype = {
                 $('.proximity_tag', this.dom).removeClass('selected');
                 $('.annotation_tag', this.dom).addClass('disabled');
                 $('.proximity_tag', this.dom).addClass('disabled');
+
+                $('.comportamiento_tag', this.dom).removeClass('selected');
+                $('.murcielago_tag', this.dom).removeClass('selected');
+                $('.comportamiento_tag', this.dom).addClass('disabled');
+                $('.murcielago_tag', this.dom).addClass('disabled');
             }
         }
     },
@@ -520,11 +600,11 @@ AnnotationStages.prototype = {
     },
 
     // Reset field values and update the proximity tags, annotation tages and annotation solutions
-    reset: function(proximityTags, annotationTags, comportamientoTags, solution, alwaysShowTags) {
+    reset: function(proximityTags, annotationTags, comportamientoTags, murcielagosTags, solution, alwaysShowTags) {
         this.clear();
         // Update all Tags' Contents
         this.alwaysShowTags = alwaysShowTags || false;
-        this.updateContentsTags(proximityTags, annotationTags, comportamientoTags);
+        this.updateContentsTags(proximityTags, annotationTags, comportamientoTags, murcielagosTags);
         this.usingProximity = proximityTags.length > 0;
         // Update solution set
         this.annotationSolutions = solution.annotations || [];
@@ -532,11 +612,12 @@ AnnotationStages.prototype = {
     },
 
     // Update stage 3 dom with new proximity tags and annotation tags
-    updateContentsTags: function(proximityTags, annotationTags, comportamientoTags) {
+    updateContentsTags: function(proximityTags, annotationTags, comportamientoTags, murcielagosTags) {
         this.stageThreeView.updateTagContents(
             proximityTags,
             annotationTags,
-            comportamientoTags
+            comportamientoTags,
+            murcielagosTags
         );
     },
 
@@ -650,12 +731,22 @@ AnnotationStages.prototype = {
         var annotationEventType = null;
         var proximityEventType = null;
 
+        var comportamientoEventType = null;
+        var murcielagoEventType = null;
+
         // Determine if the tags where added for the first time or just changed
         if (data.annotation && data.annotation !== this.currentRegion.annotation) {
             annotationEventType = this.currentRegion.annotation ? 'change' : 'add';
         }
         if (data.proximity && data.proximity !== this.currentRegion.proximity) {
             proximityEventType = this.currentRegion.proximity ? 'change' : 'add';
+        }
+        //Nuevos botones agregados
+        if (data.comportamiento && data.comportamiento !== this.currentRegion.comportamiento) {
+            comportamientoEventType = this.currentRegion.comportamiento ? 'change' : 'add';
+        }
+        if (data.murcielago && data.murcielago !== this.currentRegion.murcielago) {
+            murcielagoEventType = this.currentRegion.murcielago ? 'change' : 'add';
         }
 
         // Update the current region with the tag data
@@ -679,8 +770,26 @@ AnnotationStages.prototype = {
             );
         }
 
+        //Para los 2 nuevos secciones de botones agregados:
+        if (comportamientoEventType) {
+            this.trackEvent(
+                comportamientoEventType + '-comportamiento-label',
+                this.currentRegion.id,
+                this.currentRegion.comportamiento
+            );
+        }
+        if (murcielagoEventType) {
+            this.trackEvent(
+                murcielagoEventType + '-murcielago-label',
+                this.currentRegion.id,
+                this.currentRegion.murcielago
+            );
+        }
+
         // If the region has all its required tags, deselect the region and go back to stage 1
-        if (this.currentRegion.annotation && (!this.usingProximity || this.currentRegion.proximity)) {
+        //if (this.currentRegion.annotation && (!this.usingProximity || this.currentRegion.proximity)) {
+        //Cambio realizado:
+        if (this.currentRegion.comportamiento && this.currentRegion.murcielago && this.currentRegion.annotation && (!this.usingProximity || this.currentRegion.proximity)) {
             this.updateStage(1);
         }
     },

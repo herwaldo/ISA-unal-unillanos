@@ -4,7 +4,7 @@
         "visualization": "spectrogram",
         "proximityTag": ["Fase de búsqueda (pases)", "Fase de aproximación", "Fase terminal (feeding buzz)"],
         "annotationTag": ["Frecuencia Modulada (FM)", "Frecuencia Constante (CF)", "Frecuencia cuasi-constantes (QCF)"],
-        "comportamiento":["Caza aérea, Caza rastreo Agua, Caza Picada Agua"],
+        "comportamientoTag":["Caza aérea", "Caza rastreo Agua", "Caza Picada Agua"],
         "url": "4.5.wav",
         "tutorialVideoURL":"https://www.youtube.com/embed/PQIH5CJmPj4",
         "alwaysShowTags": true,

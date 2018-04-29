@@ -162,7 +162,10 @@ WaveSurfer.Region = {
         this.attributes = params.attributes || {};
         this.annotation = params.annotation || '';
         this.proximity = params.proximity || '';
-        //this.comportamiento = params.comportamiento || '';
+
+        //Para los dos campos agregados:
+        this.comportamiento = params.comportamiento || '';
+        this.murcielago = params.murcielago || '';
 
         this.maxLength = params.maxLength;
         this.minLength = params.minLength;
@@ -170,7 +173,7 @@ WaveSurfer.Region = {
         this.render();
         this.wavesurfer.on('zoom', this.updateRender.bind(this));
         this.wavesurfer.fireEvent('region-created', this);
-        alert("this.start "+this.start+" this.end "+this.end+" this.annotation "+this.annotation+" this.proximity "+this.proximity);
+        //alert("this.start "+this.start+" this.end "+this.end+" this.annotation "+this.annotation+" this.proximity "+this.proximity+" this.comportamiento "+this.comportamiento+" this.murcielago "+this.murcielago);
 
     },
 
@@ -212,6 +215,15 @@ WaveSurfer.Region = {
         if (null != params.proximity) {
             this.proximity = params.proximity;
         }
+
+        //Para los dos campos agregados:
+        if (null != params.comportamiento) {
+            this.comportamiento = params.comportamiento;
+        }
+        if (null != params.murcielago) {
+            this.murcielago = params.murcielago;
+        }
+        //Para los dos campos agregados.
 
         this.updateRender();
         this.fireEvent('update');

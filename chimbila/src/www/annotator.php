@@ -1,10 +1,15 @@
 <?php
 include('session.php');
 
-//$codigo=$_POST["codigo"];
-//usuario=$identificacion;
+$codigo=$_REQUEST["codigo"];
+$usuario=$identificacion;
 
-//echo "codigo $codigo y usuario $usuario";
+//echo "codigo del audio $codigo y usuario $usuario";
+//$coleccion = mysqli_query($db,"SELECT nombre_coleccion FROM jerarquia WHERE jerarquia.usuario_id=".$identificacion."");
+$path = mysqli_query($db,"SELECT ruta FROM audio WHERE audio.id=".$codigo."");
+$rowPath = mysqli_fetch_assoc($path);
+$rutaAudio =$rowPath['ruta'];
+//echo "cosa $rutaAudio";
 
 ?>
 <!DOCTYPE html>
@@ -32,21 +37,26 @@ include('session.php');
     <script type="text/javascript" src="js/src/components.js"></script>
     <script type="text/javascript" src="js/src/annotation_stages.js"></script>
     <script type="text/javascript" src="js/src/main.js" defer></script>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- Para la paginación fuente: https://github.com/pinzon1992/materialize_table_pagination -->
+    <script type="text/javascript" src="js/src/pagination.js"></script>
+
 </head>
 <body>
     <nav>
         <div class="nav-wrapper">
-          <a href="#" class="brand-logo">CHIMBILA</a>
+          <a href="audios.php" class="brand-logo">CHIMBILA</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li>Usuario : <?php echo $login_session; ?></li>
             <li><a href="logout.php">Cerrar sesión</a></li>
             <li><a class ="modal-trigger btn" id="trigger" href="#instructions-modal">Instrucciones</a></li>
           </ul>
         </div>
-      </nav>    
+    </nav>
 
     <!-- Modal Structure -->
-    <div id="instructions-modal" class="modal" style="max-height: 50% !important;">
+    <div id="instructions-modal" class="modal" style="max-height: 80% !important;">
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">Cerrar</a>
         </div>
@@ -65,10 +75,11 @@ include('session.php');
         <div class="creation_stage_container"></div>
         <div class="submit_container"></div>
     </div>
-
     <div style="background-color:#8FBC8F;" id="myDiv"></div>
     <script>
         var dataUrl = 'sample_data.json';
+        var pathAudio = "<?php echo $rutaAudio; ?>";
+        var idAudio = "<?php echo $codigo; ?>";
         var postUrl = '/insertar.php'; //'/<post_url>'; // This is where data posts to
     </script>
 
