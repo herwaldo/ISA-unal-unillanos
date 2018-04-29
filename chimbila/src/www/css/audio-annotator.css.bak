@@ -126,7 +126,9 @@
 }
 
 .proximity_tags,
-.annotation_tags {
+.annotation_tags,
+.comportamiento_tags,
+.murcielago_tags{
   display: inline-block;
   width: 80%;
   vertical-align: top;
@@ -134,7 +136,9 @@
 }
 
 .proximity_tag,
-.annotation_tag {
+.annotation_tag,
+.comportamiento_tag,
+.murcielago_tag{
   margin: 0px 10px 10px 10px !important;
   height: 30px;
   line-height: 30px;
@@ -162,6 +166,33 @@
   color: #fff !important;
   background-color: #006079;
 }
+
+/* Para los 2 nuevos campos: */
+
+.comportamiento_tag {
+  background-color: #fff;
+  color: #b93d16 !important;
+}
+
+.comportamiento_tag:hover,
+.comportamiento_tag.selected {
+  color: #fff !important;
+  background-color: #b9439c;
+}
+
+.murcielago_tag {
+  background-color: #fff;
+  color: #3d28e2 !important;
+}
+
+.murcielago_tag:hover,
+.murcielago_tag.selected {
+  color: #fff !important;
+  background-color: #1aff11;
+}
+
+/* Para los 2 nuevos campos: */
+
 .btn:focus {
   outline: none !important;
 }

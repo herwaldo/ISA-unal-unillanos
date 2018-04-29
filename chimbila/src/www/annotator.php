@@ -37,10 +37,13 @@ $rutaAudio =$rowPath['ruta'];
     <script type="text/javascript" src="js/src/components.js"></script>
     <script type="text/javascript" src="js/src/annotation_stages.js"></script>
     <script type="text/javascript" src="js/src/main.js" defer></script>
+    <script type="text/javascript" src="js/src/funciones.js"></script>
+
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- Para la paginación fuente: https://github.com/pinzon1992/materialize_table_pagination -->
     <script type="text/javascript" src="js/src/pagination.js"></script>
+    <link href="css/icon.css" rel="stylesheet">
 
 </head>
 <body>
@@ -75,7 +78,7 @@ $rutaAudio =$rowPath['ruta'];
         <div class="creation_stage_container"></div>
         <div class="submit_container"></div>
     </div>
-    <div style="background-color:#8FBC8F;" id="myDiv"></div>
+    <div style="background-color:#ffffff;" id="myDiv"></div>
     <script>
         var dataUrl = 'sample_data.json';
         var pathAudio = "<?php echo $rutaAudio; ?>";

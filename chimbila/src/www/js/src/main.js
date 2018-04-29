@@ -348,7 +348,7 @@ Annotator.prototype = {
             data: content,//params,//JSON.stringify(content),
             dataType: 'html',
             success:function (response) {                //////////
-                //$("#myDiv").html(response);
+                $("#myDiv").html(response);
                 //alert("Variable: "+params["numFactorial"]);
                 //window.location.replace("/chimbila/src/www/insertar.php");            ///////////
             }

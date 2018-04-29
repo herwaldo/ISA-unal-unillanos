@@ -17,7 +17,7 @@ $contador=1;
     <link href="css/icon.css" rel="stylesheet">
     <link rel="stylesheet" href="css/materialize.min.css">
     <link rel="stylesheet" type="text/css" href="css/audio-annotator.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
     <script type="text/javascript" src="js/lib/jquery-2.2.3.min.js"></script>
     <script type="text/javascript" src="js/lib/materialize.min.js"></script>
     <script type="text/javascript" src="js/lib/wavesurfer.min.js"></script>
@@ -100,10 +100,10 @@ $contador=1;
                         foreach ($resultado as $key => $value) {
                             echo "<tr>";
                             echo "  <td>".$contador."</td>";
-                            echo "  <td>".$value['nombre_audio']."</td>";
+                            echo "  <td>".utf8_encode($value['nombre_audio'])."</td>";
                             echo "  <td>".utf8_encode($value['nombre_coleccion'])."</td>";
                             echo "  <td>".utf8_encode($value['nombre_estado'])."</td>";
-                            echo "  <td><a class='waves-effect waves-light blue btn-small white-text' onclick =' anotarAudios(" .$value['id'] ."); '><i class='material-icons left'>play_circle_outline</i></a>  <a class='waves-effect waves-light yellow btn-small white-text' onclick =' editarColeccion(" .$value['id'] ."); '><i class='material-icons left'>edit</i></a>  <a class='waves-effect waves-light red btn-small white-text' onclick =' eliminarColeccion(" .$value['id'] ."); '><i class='material-icons left'>delete</i></a></td>";
+                            echo "  <td><a class='waves-effect waves-light blue btn-small white-text' onclick ='anotarAudios(" .$value['id'] ."); '><i class='material-icons left'>play_circle_outline</i></a>  <a class='waves-effect waves-light yellow btn-small white-text' onclick ='editarColeccion(" .$value['id'] ."); '><i class='material-icons left'>edit</i></a>  <a class='waves-effect waves-light red btn-small white-text' onclick ='eliminarColeccion(" .$value['id'] ."); '><i class='material-icons left'>delete</i></a></td>";
                             echo "</tr>";
                             $contador++;
                         }

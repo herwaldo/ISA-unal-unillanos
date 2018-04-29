@@ -55,7 +55,7 @@
 
 .creation_stage_container {
   text-align: center;
-  min-height: 303px;
+  min-height: 200px;
   position: relative;
 }
 
@@ -188,7 +188,7 @@
 .murcielago_tag:hover,
 .murcielago_tag.selected {
   color: #fff !important;
-  background-color: #1aff11;
+  background-color: #faff1f;
 }
 
 /* Para los 2 nuevos campos: */

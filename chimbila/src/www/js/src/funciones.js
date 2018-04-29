@@ -37,7 +37,7 @@ function editarColeccion(cod){
 function crearColeccion() {
     $.ajax({ 
            type: "POST", 
-           url: 'crearColeccion.php', 
+           url: '../crearColeccion.php',
            data: $("#formulario").serialize(), // Adjuntar los campos del formulario enviado. 
            success: function(data) { 
            $("#respuesta").html(data); // Mostrar la respuestas del script PHP. 
@@ -48,7 +48,7 @@ function crearColeccion() {
 function crearSubColeccion() {
     $.ajax({ 
            type: "POST", 
-           url: 'crearSubColeccion.php', 
+           url: '../crearSubColeccion.php',
            data: $("#formulario2").serialize(), // Adjuntar los campos del formulario enviado. 
            success: function(data) { 
            $("#respuesta").html(data); // Mostrar la respuestas del script PHP. 
