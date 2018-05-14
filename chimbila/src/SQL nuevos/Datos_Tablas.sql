@@ -1,10 +1,11 @@
-INSERT INTO `usuario` (`nombre`, `apellido`, `nickname`, `email`, `password`) VALUES
-                        ('Angel', 'Cruz', 'Angel', 'aacruz@unillanos.edu.co', 'eikon666'),
-                        ('Francisco', 'Sanchez', 'Pacho', 'fsanchezbarrera@unillanos.edu.co', 'pacho321'),
-                        ('Yerson', 'Porras', 'Yerfer', 'yerson.porras@unillanos.edu.co', 'yerfer'),
-                        ('Angelica Viviana', 'Yanten Arevalo', 'angelica', 'angelica.yanten@unillanos.edu.co', 'ayanten'),
-                        ('Juan David', 'Rodriguez Hurtado', 'juan', 'juan.rodriguez.hurtado@unillanos.edu.co', 'jrodriguez'),
-                        ('Karen Andrea', 'Bernal Contreras', 'karen', 'karen.bernal@unillanos.edu.co', 'pollito');
+INSERT INTO `usuario` (`id`,`nombre`, `apellido`, `nickname`, `email`, `password`) VALUES
+                        (1,'Angel', 'Cruz', 'Angel', 'aacruz@unillanos.edu.co', 'eikon666'),
+                        (2,'Francisco', 'Sanchez', 'Pacho', 'fsanchezbarrera@unillanos.edu.co', 'pacho321'),
+                        (3,'Yerson', 'Porras', 'Yerfer', 'yerson.porras@unillanos.edu.co', 'yerfer'),
+                        (4,'Angelica Viviana', 'Yanten Arevalo', 'Angelica', 'angelica.yanten@unillanos.edu.co', 'ayanten'),
+                        (5,'Juan David', 'Rodriguez Hurtado', 'Juan', 'juan.rodriguez.hurtado@unillanos.edu.co', 'jrodriguez'),
+                        (6,'Karen Andrea', 'Bernal Contreras', 'Karen', 'karen.bernal@unillanos.edu.co', 'pollito'),
+						(7,'Orlando Fabian', 'Hernandez Leal', 'Fabian', 'orlando.hernandez@unillanos.edu.co', 'ohernandez');
 
 
 INSERT INTO `audio` (`nombre_original`, `nombre_audio`,`ruta`) VALUES 
